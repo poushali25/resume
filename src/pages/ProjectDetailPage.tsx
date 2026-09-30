@@ -13,6 +13,12 @@ import themeBoardP4Img from '../assets/images/regenerated_image_1790699774492.pn
 import inspirationBoardP4Img from '../assets/images/regenerated_image_1790699778779.png';
 import technicalBoardP4Img from '../assets/images/regenerated_image_1790699782584.png';
 
+// Visual assets for NOIR E ZARI (Project 02)
+import noirThemeBoardImg from '../assets/images/regenerated_image_1790765141035.png';
+import noirInspBoardImg from '../assets/images/regenerated_image_1790765278649.png';
+import noirTechSketchImg from '../assets/images/regenerated_image_1790765476701.png';
+import noirDevBoardImg from '../assets/images/regenerated_image_1790765646509.png';
+
 // The 3 Sticker Board visual assets for Surrealism (Project 05)
 import themeBoardSticker from '../assets/images/theme_board_surrealism_sticker.png';
 import moodBoardSticker from '../assets/images/mood_board_sticker.png';
@@ -77,7 +83,7 @@ const ALL_PROJECT_PAGES: Record<string, ProjectPageData> = {
     id: 'project-01',
     number: '01',
     themeTitle: 'NOIR-E-ZARI',
-    description: 'Explores the contrast between raw streetwear construction and celestial handcraft',
+    description: 'Noir e Zari is a striking collection of Indian wear that blends the depth of black with the vibrancy of red, adorned with heavy zari embroidery. Rooted in tradition yet styled with modern elegance, the collection embodies drama, luxury, and timeless artistry — a celebration of heritage reimagined for contemporary fashion.',
     boards: [
       { id: 'theme', title: 'THEME BOARD', src: themeBoardImg, alt: 'NOIR-E-ZARI — Theme Board' },
       { id: 'inspiration', title: 'INSPIRATION BOARD', src: inspirationBoardImg, alt: 'NOIR-E-ZARI — Inspiration Board' },
@@ -90,37 +96,37 @@ const ALL_PROJECT_PAGES: Record<string, ProjectPageData> = {
     id: 'project-02',
     number: '02',
     themeTitle: 'NOIR E ZARI',
-    description: 'Tensile openwork, jute cord construction, and modular geometric crochet bodice architecture',
+    description: 'Noir e Zari is a striking collection of Indian wear that blends the depth of black with the vibrancy of red, adorned with heavy zari embroidery. Rooted in tradition yet styled with modern elegance, the collection embodies drama, luxury, and timeless artistry — a celebration of heritage reimagined for contemporary fashion.',
     boards: [
       {
         id: 'theme',
         title: 'THEME BOARD',
-        src: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1600&q=90',
-        alt: 'NOIR E ZARI — Theme Board: Tensile Bodice & Openwork Skin',
+        src: noirThemeBoardImg,
+        alt: 'NOIR E ZARI — Theme Board: Royal Black & Crimson Silks with Ornate Gold Zari Embroidery',
       },
       {
         id: 'inspiration',
         title: 'INSPIRATION BOARD',
-        src: 'https://images.unsplash.com/photo-1607344645866-009c320b5ab8?auto=format&fit=crop&w=1600&q=85',
-        alt: 'NOIR E ZARI — Inspiration Board: Charpoy Geometric Cordage & Temple Screens',
+        src: noirInspBoardImg,
+        alt: 'NOIR E ZARI — Inspiration Board: Heritage Gilded Bullion Zari, Mughal Jali & Velvet Textures',
       },
       {
         id: 'technical',
         title: 'TECHNICAL SKETCH',
-        src: 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1600&q=85',
-        alt: 'NOIR E ZARI — Technical Sketch: Grid Node System & Torso Anchor Geometry',
+        src: noirTechSketchImg,
+        alt: 'NOIR E ZARI — Technical Sketch: Haute Couture Tailored Silhouette & Zari Placement CAD Flats',
       },
       {
         id: 'development',
         title: 'DEVELOPMENT BOARD',
-        src: 'https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=1600&q=85',
-        alt: 'NOIR E ZARI — Development Board: Knot Density Variations & Indigo Botanical Dye Baths',
+        src: noirDevBoardImg,
+        alt: 'NOIR E ZARI — Development Board: Fabric Manipulation & Hand Zardozi Sampling',
       },
       {
         id: 'look',
         title: 'LOOK BOARD',
         src: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1600&q=90',
-        alt: 'NOIR E ZARI — Look Board: Sculpted Trellis Runway Silhouette',
+        alt: 'NOIR E ZARI — Look Board: Dramatic Runway Silhouettes in Black & Crimson',
       },
     ],
   },
@@ -272,6 +278,7 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({
     }
   };
 
+  const isProject02 = currentKey === 'project-02';
   const isProject04 = currentKey === 'project-04';
 
   const projectBackgroundStyle: React.CSSProperties = isProject04
@@ -282,6 +289,11 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({
           linear-gradient(to bottom, rgba(129, 1, 0, 0.28) 50%, transparent 50%)
         `,
         backgroundSize: '16px 16px',
+      }
+    : isProject02
+    ? {
+        backgroundColor: '#090505',
+        backgroundImage: `radial-gradient(ellipse at 50% 0%, rgba(129, 1, 0, 0.4) 0%, rgba(9, 5, 5, 0.98) 70%)`,
       }
     : {
         backgroundColor: '#810100',
@@ -500,7 +512,11 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({
                 key={board.id}
                 id={`board-${board.id}`}
                 className={`w-full overflow-hidden ${
-                  isProject04 ? 'bg-transparent' : 'bg-[#810100]'
+                  isProject04
+                    ? 'bg-transparent'
+                    : isProject02
+                    ? 'bg-[#0E0808]/95 border-b border-[#D4AF37]/25 shadow-lg shadow-black/40'
+                    : 'bg-[#810100]'
                 } m-0 p-0 -mb-[1px] last:mb-0 border-none ${
                   isLastDevelopmentBoard
                     ? 'sm:-mx-6 md:-mx-10 lg:-mx-16 sm:w-[calc(100%+3rem)] md:w-[calc(100%+5rem)] lg:w-[calc(100%+8rem)] max-w-none pt-4 sm:pt-6 pb-2'
@@ -512,10 +528,18 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({
                     className={`font-serif-luxury text-sm sm:text-lg tracking-[0.3em] uppercase font-semibold mb-4 sm:mb-6 text-center pt-8 sm:pt-12 ${
                       isProject04
                         ? 'bg-white/90 backdrop-blur-md px-6 py-2 rounded-full border border-white/70 shadow-sm text-[#810100] inline-block mx-auto'
+                        : isProject02
+                        ? 'text-[#F5E6C8]'
                         : 'text-[#FAF5E8]/90'
                     }`}
                   >
-                    {board.title}
+                    {isProject02 ? (
+                      <span className="inline-block px-5 py-1.5 rounded-full bg-[#180A0A]/90 border border-[#D4AF37]/40 shadow-xs">
+                        {board.title}
+                      </span>
+                    ) : (
+                      board.title
+                    )}
                   </h3>
                 )}
                 <img

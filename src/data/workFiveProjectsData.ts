@@ -1,4 +1,5 @@
 import urbanEclipseCoverImg from '../assets/images/urban_eclipse_cover.png';
+import noirThemeBoardImg from '../assets/images/regenerated_image_1790765141035.png';
 import bloomingCoverImg from '../assets/images/regenerated_image_1790702846645.jpg';
 import surrealismThemeImg from '../assets/images/theme_board_surrealism_sticker.png';
 
@@ -27,7 +28,7 @@ export const FIVE_PROJECTS: FiveProjectItem[] = [
     title: 'NOIR-E-ZARI',
     category: 'Avant-Garde Tailoring',
     year: '2025',
-    description: 'Explores the contrast between raw streetwear construction and celestial handcraft.',
+    description: 'Noir e Zari is a striking collection of Indian wear that blends the depth of black with the vibrancy of red, adorned with heavy zari embroidery. Rooted in tradition yet styled with modern elegance, the collection embodies drama, luxury, and timeless artistry — a celebration of heritage reimagined for contemporary fashion.',
     image: urbanEclipseCoverImg,
     route: '/work/project-01',
     accentColor: '#810100',
@@ -37,10 +38,10 @@ export const FIVE_PROJECTS: FiveProjectItem[] = [
     index: 1,
     number: '02',
     title: 'NOIR E ZARI',
-    category: 'Artisanal Craft & Surface',
+    category: 'Haute Couture Indian Wear',
     year: '2024',
-    description: 'Tensile openwork, jute cord construction, and modular geometric crochet bodice architecture.',
-    image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1200&q=85',
+    description: 'Noir e Zari is a striking collection of Indian wear that blends the depth of black with the vibrancy of red, adorned with heavy zari embroidery. Rooted in tradition yet styled with modern elegance, the collection embodies drama, luxury, and timeless artistry — a celebration of heritage reimagined for contemporary fashion.',
+    image: noirThemeBoardImg,
     route: '/work/project-02',
     accentColor: '#920612',
   },
