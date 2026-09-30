@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
 
-// The 5 Portfolio Board visual assets for Urban Eclipse (Project 01)
+// The 5 Portfolio Board visual assets for NOIR-E-ZARI (Project 01)
 import themeBoardImg from '../assets/images/regenerated_image_1790514745676.png';
 import inspirationBoardImg from '../assets/images/regenerated_image_1790514749756.png';
 import technicalSketchImg from '../assets/images/regenerated_image_1790514753708.png';
@@ -76,51 +76,51 @@ const ALL_PROJECT_PAGES: Record<string, ProjectPageData> = {
   'project-01': {
     id: 'project-01',
     number: '01',
-    themeTitle: 'Urban Eclipse',
+    themeTitle: 'NOIR-E-ZARI',
     description: 'Explores the contrast between raw streetwear construction and celestial handcraft',
     boards: [
-      { id: 'theme', title: 'THEME BOARD', src: themeBoardImg, alt: 'Urban Eclipse — Theme Board' },
-      { id: 'inspiration', title: 'INSPIRATION BOARD', src: inspirationBoardImg, alt: 'Urban Eclipse — Inspiration Board' },
-      { id: 'technical', title: 'TECHNICAL SKETCH', src: technicalSketchImg, alt: 'Urban Eclipse — Technical Sketch' },
-      { id: 'development', title: 'DEVELOPMENT BOARD', src: developmentBoardImg, alt: 'Urban Eclipse — Development Board' },
-      { id: 'look', title: 'LOOK BOARD', src: lookBoardImg, alt: 'Urban Eclipse — Look Board' },
+      { id: 'theme', title: 'THEME BOARD', src: themeBoardImg, alt: 'NOIR-E-ZARI — Theme Board' },
+      { id: 'inspiration', title: 'INSPIRATION BOARD', src: inspirationBoardImg, alt: 'NOIR-E-ZARI — Inspiration Board' },
+      { id: 'technical', title: 'TECHNICAL SKETCH', src: technicalSketchImg, alt: 'NOIR-E-ZARI — Technical Sketch' },
+      { id: 'development', title: 'DEVELOPMENT BOARD', src: developmentBoardImg, alt: 'NOIR-E-ZARI — Development Board' },
+      { id: 'look', title: 'LOOK BOARD', src: lookBoardImg, alt: 'NOIR-E-ZARI — Look Board' },
     ],
   },
   'project-02': {
     id: 'project-02',
     number: '02',
-    themeTitle: 'Crochet Textile Study',
+    themeTitle: 'NOIR E ZARI',
     description: 'Tensile openwork, jute cord construction, and modular geometric crochet bodice architecture',
     boards: [
       {
         id: 'theme',
         title: 'THEME BOARD',
         src: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1600&q=90',
-        alt: 'Crochet Textile Study — Theme Board: Tensile Bodice & Openwork Skin',
+        alt: 'NOIR E ZARI — Theme Board: Tensile Bodice & Openwork Skin',
       },
       {
         id: 'inspiration',
         title: 'INSPIRATION BOARD',
         src: 'https://images.unsplash.com/photo-1607344645866-009c320b5ab8?auto=format&fit=crop&w=1600&q=85',
-        alt: 'Crochet Textile Study — Inspiration Board: Charpoy Geometric Cordage & Temple Screens',
+        alt: 'NOIR E ZARI — Inspiration Board: Charpoy Geometric Cordage & Temple Screens',
       },
       {
         id: 'technical',
         title: 'TECHNICAL SKETCH',
         src: 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1600&q=85',
-        alt: 'Crochet Textile Study — Technical Sketch: Grid Node System & Torso Anchor Geometry',
+        alt: 'NOIR E ZARI — Technical Sketch: Grid Node System & Torso Anchor Geometry',
       },
       {
         id: 'development',
         title: 'DEVELOPMENT BOARD',
         src: 'https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=1600&q=85',
-        alt: 'Crochet Textile Study — Development Board: Knot Density Variations & Indigo Botanical Dye Baths',
+        alt: 'NOIR E ZARI — Development Board: Knot Density Variations & Indigo Botanical Dye Baths',
       },
       {
         id: 'look',
         title: 'LOOK BOARD',
         src: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1600&q=90',
-        alt: 'Crochet Textile Study — Look Board: Sculpted Trellis Runway Silhouette',
+        alt: 'NOIR E ZARI — Look Board: Sculpted Trellis Runway Silhouette',
       },
     ],
   },
