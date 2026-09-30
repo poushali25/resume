@@ -74,7 +74,7 @@ export const EmbroideryScene: React.FC<EmbroiderySceneProps> = ({
       if (!isPaused) {
         setLocalTime((prev) => {
           const next = prev + dt;
-          if (next >= 7.5 && !hasCompleted) {
+          if (next >= 3.2 && !hasCompleted) {
             setHasCompleted(true);
             onAnimationComplete?.();
           }
@@ -145,15 +145,11 @@ export const EmbroideryScene: React.FC<EmbroiderySceneProps> = ({
     m.tiltY += (m.targetY - m.tiltY) * 0.08;
 
     // Timeline Boundaries
-    const T_RED_END = 0.8;
-    const T_COUNT_3 = 1.8;
-    const T_COUNT_2 = 2.8;
-    const T_COUNT_1 = 3.8;
-    const T_FLUID_START = 3.8;
-    const T_FLUID_END = 5.6;
+    const T_FLUID_START = 0.4;
+    const T_FLUID_END = 2.2;
 
     // =========================================================
-    // 1. SCENE 1 & 2: RED INTRO SCREEN + COUNTDOWN (0.0s – 3.8s)
+    // 1. SCENE 1: RED INTRO SCREEN (0.0s – 0.4s)
     // =========================================================
     if (t < T_FLUID_END && !reducedMotion) {
       // 1A. Deep rich red background matching reference video (#8A0000 / #900A0A)
@@ -178,59 +174,10 @@ export const EmbroideryScene: React.FC<EmbroiderySceneProps> = ({
         const gy = (Math.cos(i * 33 + t) * 0.5 + 0.5) * h;
         ctx.fillRect(gx, gy, 1.5, 1.5);
       }
-
-      // 1C. Large Centered Countdown Typography (3 -> 2 -> 1)
-      if (t >= T_RED_END && t < T_COUNT_1) {
-        let numStr = '3';
-        let numProgress = 0;
-
-        if (t < T_COUNT_3) {
-          numStr = '3';
-          numProgress = (t - T_RED_END) / (T_COUNT_3 - T_RED_END);
-        } else if (t < T_COUNT_2) {
-          numStr = '2';
-          numProgress = (t - T_COUNT_3) / (T_COUNT_2 - T_COUNT_3);
-        } else {
-          numStr = '1';
-          numProgress = (t - T_COUNT_2) / (T_COUNT_1 - T_COUNT_2);
-        }
-
-        // Smooth cinematic scale & fade: enters at scale 1.05, eases to 1.0, fades out smoothly
-        const numAlpha = Math.sin(numProgress * Math.PI);
-        const numScale = 1.05 - numProgress * 0.06;
-
-        ctx.save();
-        ctx.translate(w * 0.5, h * 0.48);
-        ctx.scale(numScale, numScale);
-        ctx.globalAlpha = Math.max(0, Math.min(1, numAlpha * 1.3));
-
-        // Editorial Numerals font - bold and editorial as requested in Orange Avenue headline font
-        const numFontSize = Math.min(w * 0.40, 280);
-        ctx.font = `800 ${numFontSize}px "Orange Avenue", "Runiga", "Playfair Display", "Cormorant Garamond", Georgia, serif`;
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-
-        // Noir Black: #1B1717 with subtle dark edge shadow
-        ctx.shadowColor = 'rgba(0, 0, 0, 0.65)';
-        ctx.shadowBlur = 32;
-        ctx.fillStyle = '#1B1717';
-        ctx.fillText(numStr, 0, 0);
-
-        ctx.restore();
-      }
-
-      // Editorial Prompt at bottom: CLICK ANYWHERE TO ACTIVATE THE EXPERIENCE
-      ctx.save();
-      ctx.font = '500 10.5px "Transity", "Transcity", "Outfit", "Plus Jakarta Sans", sans-serif';
-      ctx.fillStyle = 'rgba(27, 23, 23, 0.75)';
-      ctx.letterSpacing = '0.32em';
-      ctx.textAlign = 'center';
-      ctx.fillText('CLICK ANYWHERE TO ACTIVATE THE EXPERIENCE', w * 0.5, h * 0.78);
-      ctx.restore();
     }
 
     // =========================================================
-    // 2. SCENE 3: DARK BLUE LIQUID / INK FLOW WAVE (3.8s – 5.6s)
+    // 2. SCENE 2: DARK BLUE LIQUID / INK FLOW WAVE (0.4s – 2.2s)
     // =========================================================
     if (t >= T_FLUID_START && !reducedMotion) {
       const fluidProgress = Math.min((t - T_FLUID_START) / (T_FLUID_END - T_FLUID_START), 1.0);
@@ -338,12 +285,12 @@ export const EmbroideryScene: React.FC<EmbroiderySceneProps> = ({
   }, [localTime, reducedMotion]);
 
   // Timing helper flags
-  const isPostFluid = reducedMotion || localTime >= 5.6;
-  const isTypographyActive = reducedMotion || localTime >= 5.8;
+  const isPostFluid = reducedMotion || localTime >= 2.2;
+  const isTypographyActive = reducedMotion || localTime >= 2.4;
 
   const handleContainerClick = () => {
-    if (localTime < 5.6) {
-      setLocalTime(5.6);
+    if (localTime < 2.2) {
+      setLocalTime(2.2);
       onSkipIntro?.();
     }
   };
@@ -354,7 +301,7 @@ export const EmbroideryScene: React.FC<EmbroiderySceneProps> = ({
       onClick={handleContainerClick}
       onPointerMove={handlePointerMove}
       className={`relative z-20 w-full min-h-screen flex flex-col items-center justify-center select-none overflow-hidden bg-transparent ${
-        localTime < 5.6 ? 'cursor-pointer' : ''
+        localTime < 2.2 ? 'cursor-pointer' : ''
       }`}
     >
       {/* 1. Canvas Layer: Red Ground, Countdown & Organic Fluid Ink Wave */}

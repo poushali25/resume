@@ -1,4 +1,4 @@
-import urbanEclipseCoverImg from '../assets/images/regenerated_image_1790514745676.png';
+import urbanEclipseCoverImg from '../assets/images/urban_eclipse_cover.png';
 import bloomingCoverImg from '../assets/images/regenerated_image_1790702846645.jpg';
 import surrealismThemeImg from '../assets/images/theme_board_surrealism_sticker.png';
 

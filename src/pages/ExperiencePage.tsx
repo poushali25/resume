@@ -304,7 +304,7 @@ export const ExperiencePage: React.FC = () => {
             </div>
 
             {/* Materials Checklist */}
-            <div className="bg-white/80 border border-[#1B1717]/12 rounded-xs p-5 sm:p-6 mb-8">
+            <div className="bg-white/80 border border-[#1B1717]/12 rounded-xs p-5 sm:p-6">
               <h4 className="font-serif-luxury text-sm tracking-[0.2em] text-[#810100] uppercase font-semibold mb-3">
                 Materials Needed
               </h4>
@@ -325,41 +325,6 @@ export const ExperiencePage: React.FC = () => {
                   </li>
                 ))}
               </ul>
-            </div>
-
-            {/* Step-by-Step 9-Phase Process */}
-            <div>
-              <h4 className="font-serif-luxury text-sm tracking-[0.2em] text-[#1B1717] uppercase font-semibold mb-4">
-                Step-by-Step Process (01–09)
-              </h4>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5">
-                {[
-                  { step: '01', title: 'Selecting the shell', desc: 'Choose a suitable coconut shell with an interesting shape, density, or grain pattern.' },
-                  { step: '02', title: 'Cleaning and drying', desc: 'Clean the coconut shell thoroughly, remove fibrous husk remnants, and let it dry completely.' },
-                  { step: '03', title: 'Sanding', desc: 'Sand the shell inside and out to smooth away rough fibers and achieve a flat, uniform surface.' },
-                  { step: '04', title: 'Designing', desc: 'Sketch your bespoke geometric or floral pattern directly onto the shell surface or trace a template.' },
-                  { step: '05', title: 'Cutting', desc: 'Use a precision jewelry saw or coping saw to carefully cut out the pendant profile and inner contours.' },
-                  { step: '06', title: 'Drilling', desc: 'Accurately drill a clean hole at the apex for the jump ring, bail, or cord suspension.' },
-                  { step: '07', title: 'Shaping and refining', desc: 'Use precision needle files and rasps to refine perimeter bevels and smooth all inner cut edges.' },
-                  { step: '08', title: 'Polishing', desc: 'Buff with cotton polishing cloths and natural wax to enrich the shell’s natural deep ebony-brown luster.' },
-                  { step: '09', title: 'Assembling', desc: 'Attach the jump ring and threaded leather or metal chain to complete the wearable talisman.' },
-                ].map((item) => (
-                  <div
-                    key={item.step}
-                    className="p-4 bg-white/90 border border-[#1B1717]/10 rounded-xs shadow-2xs hover:border-[#810100]/40 transition-colors"
-                  >
-                    <span className="font-serif-luxury text-lg text-[#810100] font-semibold block mb-1">
-                      {item.step}
-                    </span>
-                    <h5 className="font-medium text-xs text-[#1B1717] mb-1">
-                      {item.title}
-                    </h5>
-                    <p className="text-[11px] text-[#1B1717]/70 font-light leading-relaxed">
-                      {item.desc}
-                    </p>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
         </section>
@@ -511,67 +476,9 @@ export const ExperiencePage: React.FC = () => {
             </div>
           </div>
 
-          {/* 
-            THE ECO-PRINTING PROCESS (Page 4)
-          */}
-          <div className="pt-8 border-t border-[#1B1717]/15">
-            <h3 className="font-serif-luxury text-2xl sm:text-3xl text-[#1B1717] font-normal mb-2">
-              The Eco-Printing Process
-            </h3>
-            <p className="text-xs text-[#1B1717]/70 mb-6">
-              A 5-step botanical dye transformation from live foliage to permanent textile pattern
-            </p>
-
-            {/* 5 Step Description Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5 mb-6">
-              {[
-                {
-                  num: '01',
-                  name: 'Gathering Materials',
-                  body: 'Collect various plant materials, such as tannin-rich leaves, vibrant flowers, and branch cuttings.',
-                },
-                {
-                  num: '02',
-                  name: 'Preparing Substrate',
-                  body: 'Choose a suitable paper or natural fabric (silk, linen, cotton) scoured and mordanted for dye absorption.',
-                },
-                {
-                  num: '03',
-                  name: 'Creating Design',
-                  body: 'Arrange the plant materials in a desired compositional layout or repeat pattern directly onto the substrate.',
-                },
-                {
-                  num: '04',
-                  name: 'Steaming or Pressing',
-                  body: 'Steam, boil, or compress the bundled plant materials onto the substrate to transfer natural pigments and textures.',
-                },
-                {
-                  num: '05',
-                  name: 'Revealing the Print',
-                  body: 'After steaming or pressing and cooling, carefully remove the botanicals to reveal the permanent, unique print.',
-                },
-              ].map((step) => (
-                <div
-                  key={step.num}
-                  className="p-4 bg-white/90 border border-[#1B1717]/10 rounded-xs shadow-2xs hover:border-[#810100]/40 transition-colors"
-                >
-                  <span className="font-serif-luxury text-lg text-[#810100] font-semibold block mb-1">
-                    {step.num}
-                  </span>
-                  <h5 className="font-medium text-xs text-[#1B1717] mb-1">
-                    {step.name}
-                  </h5>
-                  <p className="text-[11px] text-[#1B1717]/70 font-light leading-relaxed">
-                    {step.body}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            <p className="text-center font-serif-luxury text-base sm:text-lg text-[#810100] italic font-light pt-4">
-              "Eco-printing is a beautiful way to connect with nature and create stunning, unique prints."
-            </p>
-          </div>
+          <p className="text-center font-serif-luxury text-base sm:text-lg text-[#810100] italic font-light pt-2">
+            "Eco-printing is a beautiful way to connect with nature and create stunning, unique prints."
+          </p>
         </section>
       )}
 

@@ -412,9 +412,7 @@ export const VerticalOvalProjectOrbit: React.FC<VerticalOvalProjectOrbitProps> =
                         style={{
                           transition: 'filter 50ms ease-out, transform 400ms ease-out',
                         }}
-                        className={`w-full h-full ${
-                          project.number === '01' ? 'object-contain' : 'object-cover'
-                        } object-center select-none transition-transform duration-300 ease-out ${
+                        className={`w-full h-full object-cover object-center select-none transition-transform duration-300 ease-out ${
                           clickedProjectId === project.id
                             ? 'scale-[1.06]'
                             : 'group-hover:scale-[1.03]'

@@ -115,14 +115,13 @@ export default function App() {
         return;
       }
 
-      // Smooth and slow signature liquid wave transition (~1500ms total, matching 1st page Scene 3)
+      // Smooth and fluid signature liquid wave transition (~1200ms total, matching landing page)
       setTransitionDirection(determinedDirection);
       setIsTransitioning(true);
       setTransitionPhase('covering');
       setTriggerSweep(true);
 
-      // PHASE 1 (0ms - 720ms): Fluid wave rises smoothly from bottom, completely covering the current page.
-      // At 720ms, swap active page state underneath with zero content flash.
+      // Page swap at 580ms when the liquid wave has 100% blanketed the viewport
       const t1 = window.setTimeout(() => {
         setTransitionPhase('covered');
         if (targetProjectId) {
@@ -131,18 +130,17 @@ export default function App() {
         setActivePage(targetPage);
         window.scrollTo({ top: 0, behavior: 'instant' });
 
-        // Trigger reveal phase so the wave crest glides past top and new page unveils smoothly
         requestAnimationFrame(() => {
           setTransitionPhase('revealing');
         });
-      }, 720);
+      }, 580);
 
-      // PHASE 2 (720ms - 1500ms): Liquid wave crest glides past the top, settling into new page
+      // Liquid wave glides past the top, settling into new page (~1200ms)
       const t2 = window.setTimeout(() => {
         setIsTransitioning(false);
         setTransitionPhase('idle');
         setTriggerSweep(false);
-      }, 1500);
+      }, 1200);
 
       transitionTimerRef.current = [t1, t2];
     },
