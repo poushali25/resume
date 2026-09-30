@@ -1,0 +1,160 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Orange Avenue';
+  src: local('Orange Avenue'), local('OrangeAvenue'), local('Orange Avenue Regular');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Runiga';
+  src: local('Runiga'), local('Runiga Regular');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Transity';
+  src: local('Transity'), local('Transcity'), local('Transit');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-orange-avenue: 'Orange Avenue', 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  --font-runiga: 'Runiga', 'Italiana', 'Bellefair', Georgia, serif;
+  --font-transity: 'Transity', 'Transcity', 'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-headline: 'Orange Avenue', 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+}
+
+@layer base {
+  :root {
+    /* Haute Couture Cherry Red, Noir Black & Cotton Cream Palette */
+    --color-popcorn: #FAF5E8;
+    --color-popcorn-butter: #F3E8CB;
+    --color-popcorn-gold: #D4AF37;
+
+    --color-noir-black: #1B1717;
+    --color-noir-black-deep: #0A0A0A;
+    --color-noir-black-rich: #141414;
+    --color-noir-black-muted: #242424;
+
+    --color-cherry-red: #810100;
+    --color-cherry-red-light: #A3081A;
+    --color-cherry-red-glow: #D41428;
+    --color-cherry-red-deep: #630000;
+    --color-maroon: #630000;
+    --color-maroon-deep: #4A0208;
+
+    /* Semantic Aliases mapped to Cherry Red & Noir Black */
+    --color-cotton: #FAF5E8;
+    --color-chocolate-plum: #1B1717;
+    --color-chocolate-plum-deep: #0A0A0A;
+    --color-chocolate-plum-rich: #630000;
+    --color-chocolate-plum-muted: #242424;
+
+    --color-cerulean: #810100;
+    --color-cerulean-light: #A3081A;
+    --color-cerulean-glow: #D41428;
+    --color-cerulean-deep: #630000;
+
+    --color-almond: #FAF5E8;
+    --color-coffee-bean: #1B1717;
+    --color-warm-brown: #1B1717;
+    --color-antique-gold: #810100;
+    --color-muted-burgundy: #630000;
+    --color-soft-cream: #FAF5E8;
+
+    /* Legacy compatibility variables */
+    --color-blood-red: #810100;
+    --color-blood-red-glow: #D41428;
+    --color-vanilla: #FAF5E8;
+    --color-vanilla-light: #FFFDF7;
+    --color-bean: #1B1717;
+    --color-bean-dark: #0A0A0A;
+    --color-bean-light: #242424;
+    --color-dark-green: #1B1717;
+    --color-dark-green-surface: #141414;
+    --color-dark-green-accent: #810100;
+    --color-wine: #630000;
+    --color-ivory: #FAF5E8;
+    --color-beige: #FAF5E8;
+    --color-gold: #810100;
+    --color-charcoal: #1B1717;
+  }
+
+  *,
+  ::before,
+  ::after {
+    font-family: 'Transity', 'Transcity', 'Outfit', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+
+  body {
+    font-family: 'Transity', 'Transcity', 'Outfit', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: #FAF5E8;
+    color: #1B1717;
+    overflow-x: hidden;
+  }
+
+  /* ALL HEADLINES SHARE THE EXACT SAME FONT: Orange Avenue */
+  h1, h2, h3, h4, h5, h6, .font-headline, .font-serif-luxury, [class*="font-serif"] {
+    font-family: 'Orange Avenue', 'Runiga', 'Playfair Display', 'Cormorant Garamond', Georgia, serif !important;
+    letter-spacing: -0.015em;
+  }
+
+  /* Subheadings, quotes, and sophisticated editorial callouts: Runiga */
+  .font-runiga, .font-subheading, blockquote, [class*="italic font-serif"] {
+    font-family: 'Runiga', 'Italiana', 'Bellefair', Georgia, serif !important;
+  }
+
+  /* Body copy, navigation words, and details: Transity */
+  .font-transity, .font-body, nav, p, span, button, input, textarea {
+    font-family: 'Transity', 'Transcity', 'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+}
+
+/* Custom noise grain overlay for cinematic fashion feel */
+.bg-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
+}
+
+/* Hide scrollbars for clean horizontal slider */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Luxury Atelier Editorial Text Selection */
+::selection {
+  background-color: #810100 !important;
+  color: #FAF5E8 !important;
+  text-shadow: 0 0 10px rgba(212, 20, 40, 0.7);
+}
+::-moz-selection {
+  background-color: #810100 !important;
+  color: #FAF5E8 !important;
+}
+
+/* Custom smoking cursor: Hide normal browser cursor completely across entire document */
+html,
+body,
+*,
+*::before,
+*::after,
+a,
+button,
+input,
+textarea,
+select,
+span,
+div,
+svg {
+  cursor: none !important;
+}
