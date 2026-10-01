@@ -72,8 +72,8 @@ export const LandingNav: React.FC<LandingNavProps> = ({
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isHoverInteracting]);
 
-  // Synchronized with Scene 8: Navigation reveals as the landing page emerges (5.5s)
-  const isVisible = reducedMotion || progressTime >= 5.5 || isScrolled || currentSection !== 'home';
+  // Navigation is visible immediately when landing page opens
+  const isVisible = true;
 
   const handleClick = (id: PageId | 'archive', route: string) => {
     setSelectedNavId(id);

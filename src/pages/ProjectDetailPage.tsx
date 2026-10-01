@@ -106,9 +106,9 @@ const ALL_PROJECT_PAGES: Record<string, ProjectPageData> = {
       },
       {
         id: 'inspiration',
-        title: 'INSPIRATION BOARD',
+        title: 'MOOD BOARD',
         src: noirInspBoardImg,
-        alt: 'NOIR E ZARI — Inspiration Board: Heritage Gilded Bullion Zari, Mughal Jali & Velvet Textures',
+        alt: 'NOIR E ZARI — Mood Board: Heritage Gilded Bullion Zari, Mughal Jali & Velvet Textures',
       },
       {
         id: 'technical',
@@ -121,12 +121,6 @@ const ALL_PROJECT_PAGES: Record<string, ProjectPageData> = {
         title: 'DEVELOPMENT BOARD',
         src: noirDevBoardImg,
         alt: 'NOIR E ZARI — Development Board: Fabric Manipulation & Hand Zardozi Sampling',
-      },
-      {
-        id: 'look',
-        title: 'LOOK BOARD',
-        src: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1600&q=90',
-        alt: 'NOIR E ZARI — Look Board: Dramatic Runway Silhouettes in Black & Crimson',
       },
     ],
   },

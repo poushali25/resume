@@ -31,6 +31,15 @@ export const Navbar: React.FC<NavbarProps> = ({
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const isDark = activePage === 'home' || activePage === 'work';
+  const isProject02 =
+    activePage === 'project-detail' &&
+    Boolean(
+      selectedProjectId &&
+        (selectedProjectId.includes('02') ||
+          selectedProjectId.includes('project-2') ||
+          selectedProjectId === 'project-02' ||
+          selectedProjectId.includes('crochet'))
+    );
   const isProject04 =
     activePage === 'project-detail' &&
     Boolean(
@@ -72,9 +81,13 @@ export const Navbar: React.FC<NavbarProps> = ({
         className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-700 ease-out select-none ${
           isProject04
             ? 'bg-white/95 backdrop-blur-md border-b border-[#810100]/20 shadow-sm py-4'
-            : isScrolled
-              ? 'bg-[#810100]/95 backdrop-blur-md border-b border-white/10 shadow-lg py-4'
-              : 'bg-transparent py-6 sm:py-8'
+            : isProject02
+              ? isScrolled
+                ? 'bg-[#090505]/95 backdrop-blur-md border-b border-[#D4AF37]/25 shadow-lg shadow-black/50 py-4'
+                : 'bg-transparent py-6 sm:py-8'
+              : isScrolled
+                ? 'bg-[#810100]/95 backdrop-blur-md border-b border-white/10 shadow-lg py-4'
+                : 'bg-transparent py-6 sm:py-8'
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 sm:px-12 flex items-center justify-between">
@@ -90,9 +103,11 @@ export const Navbar: React.FC<NavbarProps> = ({
               className={`font-serif-luxury text-lg sm:text-xl tracking-[0.22em] font-normal transition-colors duration-300 ${
                 isProject04
                   ? 'text-[#1B1717] group-hover:text-[#810100]'
-                  : isScrolled || activePage === 'project-detail'
-                    ? 'text-[#FAF5E8] group-hover:text-white'
-                    : 'text-[#1B1717] group-hover:text-[#810100]'
+                  : isProject02
+                    ? 'text-[#FAF5E8] group-hover:text-[#D4AF37]'
+                    : isScrolled || activePage === 'project-detail'
+                      ? 'text-[#FAF5E8] group-hover:text-white'
+                      : 'text-[#1B1717] group-hover:text-[#810100]'
               }`}
             >
               POUSHALI MAJI
@@ -104,9 +119,11 @@ export const Navbar: React.FC<NavbarProps> = ({
             className={`hidden md:flex items-center space-x-0.5 sm:space-x-1 p-1 rounded-full backdrop-blur-md transition-all duration-300 ${
               isProject04
                 ? 'bg-white/95 border border-[#810100]/20 shadow-[0_4px_24px_rgba(129,1,0,0.06)]'
-                : isScrolled
-                  ? 'bg-white/10 border border-white/15 shadow-[0_4px_24px_rgba(0,0,0,0.4)]'
-                  : 'bg-[#FAF5E8]/95 border border-[#1B1717]/15 shadow-[0_4px_24px_rgba(27,23,23,0.08)]'
+                : isProject02
+                  ? 'bg-[#140A0A]/90 border border-[#D4AF37]/35 shadow-[0_4px_24px_rgba(0,0,0,0.6)]'
+                  : isScrolled
+                    ? 'bg-white/10 border border-white/15 shadow-[0_4px_24px_rgba(0,0,0,0.4)]'
+                    : 'bg-[#FAF5E8]/95 border border-[#1B1717]/15 shadow-[0_4px_24px_rgba(27,23,23,0.08)]'
             }`}
           >
             {NAV_ITEMS.map((item) => {
@@ -124,13 +141,17 @@ export const Navbar: React.FC<NavbarProps> = ({
                       ? isActive
                         ? 'text-[#810100] font-bold scale-[1.04]'
                         : 'text-[#1B1717]/70 hover:text-[#810100] font-medium'
-                      : isScrolled
+                      : isProject02
                         ? isActive
-                          ? 'text-white font-bold scale-[1.04]'
-                          : 'text-white/80 hover:text-white font-medium'
-                        : isActive
-                          ? 'text-[#810100] font-bold scale-[1.04] drop-shadow-[0_1px_2px_rgba(129,1,0,0.25)]'
-                          : 'text-[#1B1717]/70 hover:text-[#810100] font-medium'
+                          ? 'text-[#F5E6C8] font-bold scale-[1.04] drop-shadow-[0_1px_4px_rgba(212,175,55,0.4)]'
+                          : 'text-[#FAF5E8]/75 hover:text-[#D4AF37] font-medium'
+                        : isScrolled
+                          ? isActive
+                            ? 'text-white font-bold scale-[1.04]'
+                            : 'text-white/80 hover:text-white font-medium'
+                          : isActive
+                            ? 'text-[#810100] font-bold scale-[1.04] drop-shadow-[0_1px_2px_rgba(129,1,0,0.25)]'
+                            : 'text-[#1B1717]/70 hover:text-[#810100] font-medium'
                   }`}
                 >
                   {/* Animated Sliding Background Glow & Underline with Fast Spring Motion */}
@@ -140,9 +161,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                       className={`absolute inset-0 rounded-full -z-10 ${
                         isProject04
                           ? 'bg-gradient-to-r from-[#810100]/[0.12] via-[#810100]/[0.08] to-[#810100]/[0.12] border border-[#810100]/30 shadow-[0_0_14px_rgba(129,1,0,0.18)]'
-                          : isScrolled
-                            ? 'bg-white/20 border border-white/30 shadow-[0_0_14px_rgba(255,255,255,0.2)]'
-                            : 'bg-gradient-to-r from-[#810100]/[0.12] via-[#810100]/[0.08] to-[#810100]/[0.12] border border-[#810100]/30 shadow-[0_0_14px_rgba(129,1,0,0.18)]'
+                          : isProject02
+                            ? 'bg-gradient-to-r from-[#810100]/40 via-[#D4AF37]/25 to-[#810100]/40 border border-[#D4AF37]/50 shadow-[0_0_12px_rgba(212,175,55,0.25)]'
+                            : isScrolled
+                              ? 'bg-white/20 border border-white/30 shadow-[0_0_14px_rgba(255,255,255,0.2)]'
+                              : 'bg-gradient-to-r from-[#810100]/[0.12] via-[#810100]/[0.08] to-[#810100]/[0.12] border border-[#810100]/30 shadow-[0_0_14px_rgba(129,1,0,0.18)]'
                       }`}
                       transition={{
                         type: 'spring',
@@ -155,9 +178,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                         className={`absolute bottom-1 inset-x-2.5 h-[2px] rounded-full ${
                           isProject04
                             ? 'bg-[#810100] shadow-[0_0_8px_rgba(129,1,0,0.7)]'
-                            : isScrolled
-                              ? 'bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)]'
-                              : 'bg-[#810100] shadow-[0_0_8px_rgba(129,1,0,0.7)]'
+                            : isProject02
+                              ? 'bg-[#D4AF37] shadow-[0_0_8px_rgba(212,175,55,0.8)]'
+                              : isScrolled
+                                ? 'bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)]'
+                                : 'bg-[#810100] shadow-[0_0_8px_rgba(129,1,0,0.7)]'
                         }`}
                       />
                     </motion.div>
@@ -178,9 +203,11 @@ export const Navbar: React.FC<NavbarProps> = ({
               className={`p-2 focus:outline-hidden rounded-md border transition-colors ${
                 isProject04
                   ? 'text-[#1B1717] border-[#810100]/20 bg-white/95 shadow-sm'
-                  : isScrolled
-                    ? 'text-white border-white/20 bg-white/10'
-                    : 'text-[#1B1717] border-[#1B1717]/20 bg-[#FAF5E8]/90'
+                  : isProject02
+                    ? 'text-[#FAF5E8] border-[#D4AF37]/30 bg-[#140A0A]/90 shadow-sm'
+                    : isScrolled
+                      ? 'text-white border-white/20 bg-white/10'
+                      : 'text-[#1B1717] border-[#1B1717]/20 bg-[#FAF5E8]/90'
               }`}
               aria-label="Toggle Navigation Menu"
             >
@@ -192,19 +219,33 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Mobile Drawer Navigation (Minimal & Clean) */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-[95] flex flex-col justify-between p-8 pt-28 md:hidden animate-fade-in border-b bg-[#FAF5E8] text-[#1B1717] border-[#1B1717]/20 shadow-2xl">
+        <div
+          className={`fixed inset-0 z-[95] flex flex-col justify-between p-8 pt-28 md:hidden animate-fade-in border-b ${
+            isProject04
+              ? 'bg-white text-[#1B1717] border-[#810100]/20'
+              : isProject02
+                ? 'bg-[#090505] text-[#FAF5E8] border-[#D4AF37]/30'
+                : 'bg-[#FAF5E8] text-[#1B1717] border-[#1B1717]/20'
+          } shadow-2xl`}
+        >
           <div className="space-y-4">
             {NAV_ITEMS.map((item) => (
               <button
                 key={item.id}
                 onClick={() => handleNavClick(item.id, item.route)}
-                className="block w-full text-left font-serif-luxury text-2xl tracking-[0.15em] border-b border-[#1B1717]/15 pb-3 focus:outline-hidden cursor-pointer"
+                className={`block w-full text-left font-serif-luxury text-2xl tracking-[0.15em] border-b ${
+                  isProject02 ? 'border-[#D4AF37]/20' : 'border-[#1B1717]/15'
+                } pb-3 focus:outline-hidden cursor-pointer`}
               >
                 <span
                   className={
                     activePage === item.id
-                      ? 'text-[#810100] font-medium'
-                      : 'text-[#1B1717]'
+                      ? isProject02
+                        ? 'text-[#F5E6C8] font-bold drop-shadow-[0_1px_4px_rgba(212,175,55,0.4)]'
+                        : 'text-[#810100] font-medium'
+                      : isProject02
+                        ? 'text-[#FAF5E8]/80'
+                        : 'text-[#1B1717]'
                   }
                 >
                   {item.label}
@@ -213,8 +254,16 @@ export const Navbar: React.FC<NavbarProps> = ({
             ))}
           </div>
 
-          <div className="border-t border-[#1B1717]/20 pt-4 text-xs font-light">
-            <p className="tracking-widest uppercase text-[#630000]">
+          <div
+            className={`border-t ${
+              isProject02 ? 'border-[#D4AF37]/20 text-[#FAF5E8]/60' : 'border-[#1B1717]/20'
+            } pt-4 text-xs font-light`}
+          >
+            <p
+              className={`tracking-widest uppercase ${
+                isProject02 ? 'text-[#D4AF37]' : 'text-[#630000]'
+              }`}
+            >
               POUSHALI MAJI
             </p>
           </div>
