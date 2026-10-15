@@ -25,6 +25,10 @@ import moodBoardSticker from '../assets/images/mood_board_sticker.png';
 import colourBoardSticker from '../assets/images/colour_board_sticker.png';
 import developmentBoardSurrealismImg from '../assets/images/regenerated_image_1790615014861.png';
 
+// Visual assets for Bengali Narrative & Craft
+import craftTextileImg from '../assets/images/indigo_dabu_fabric_1790494478976.jpg';
+import ecoPrintRevealedImg from '../assets/images/eco_print_revealed_1790494428941.jpg';
+
 interface ProjectDetailPageProps {
   projectId: string;
   onBackToWork: () => void;
@@ -82,14 +86,14 @@ const ALL_PROJECT_PAGES: Record<string, ProjectPageData> = {
   'project-01': {
     id: 'project-01',
     number: '01',
-    themeTitle: 'NOIR-E-ZARI',
-    description: 'Noir e Zari is a striking collection of Indian wear that blends the depth of black with the vibrancy of red, adorned with heavy zari embroidery. Rooted in tradition yet styled with modern elegance, the collection embodies drama, luxury, and timeless artistry — a celebration of heritage reimagined for contemporary fashion.',
+    themeTitle: 'Urban Eclipse',
+    description: 'The theme merges industrial street culture with nocturnal celestial imagery—using rugged denim, visible construction lines, oversized proportions and raw edges alongside delicate embroidery, dangling threads and beadwork.',
     boards: [
-      { id: 'theme', title: 'THEME BOARD', src: themeBoardImg, alt: 'NOIR-E-ZARI — Theme Board' },
-      { id: 'inspiration', title: 'INSPIRATION BOARD', src: inspirationBoardImg, alt: 'NOIR-E-ZARI — Inspiration Board' },
-      { id: 'technical', title: 'TECHNICAL SKETCH', src: technicalSketchImg, alt: 'NOIR-E-ZARI — Technical Sketch' },
-      { id: 'development', title: 'DEVELOPMENT BOARD', src: developmentBoardImg, alt: 'NOIR-E-ZARI — Development Board' },
-      { id: 'look', title: 'LOOK BOARD', src: lookBoardImg, alt: 'NOIR-E-ZARI — Look Board' },
+      { id: 'theme', title: 'THEME BOARD', src: themeBoardImg, alt: 'Urban Eclipse — Theme Board' },
+      { id: 'inspiration', title: 'INSPIRATION BOARD', src: inspirationBoardImg, alt: 'Urban Eclipse — Inspiration Board' },
+      { id: 'technical', title: 'TECHNICAL SKETCH', src: technicalSketchImg, alt: 'Urban Eclipse — Technical Sketch' },
+      { id: 'development', title: 'DEVELOPMENT BOARD', src: developmentBoardImg, alt: 'Urban Eclipse — Development Board' },
+      { id: 'look', title: 'LOOK BOARD', src: lookBoardImg, alt: 'Urban Eclipse — Look Board' },
     ],
   },
   'project-02': {
@@ -222,26 +226,73 @@ const ALL_PROJECT_PAGES: Record<string, ProjectPageData> = {
       },
       {
         id: 'development',
-        title: 'DEVELOPMENT BOARD',
+        title: 'ILLUSTRATIONS',
         src: developmentBoardSurrealismImg,
-        alt: 'Surrealism — Development Board (Illustration)',
+        alt: 'Surrealism — Illustrations',
+      },
+    ],
+  },
+  'project-06': {
+    id: 'project-06',
+    number: '06',
+    themeTitle: 'Digital Illustration',
+    description: 'High-contrast figure rendering, kinetic silhouette CAD treatments, and dramatic light simulations communicating the physical emotion of couture.',
+    boards: [
+      {
+        id: 'theme',
+        title: 'FIGURE GESTURE',
+        src: developmentBoardSurrealismImg,
+        alt: 'Digital Fashion Illustration — Dynamic Silhouette Vector',
+        isSticker: true,
+      },
+      {
+        id: 'inspiration',
+        title: 'CAD SHADING & TEXTURE',
+        src: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=85',
+        alt: 'Digital Illustration — Procedural Grain & Specular Reflection',
+      },
+    ],
+  },
+  'project-07': {
+    id: 'project-07',
+    number: '07',
+    themeTitle: 'Bengali Narrative & Craft',
+    description: 'Reinterpreting classical Bengal folk narratives, Kalighat pats, and traditional indigo/dabu craft practices into contemporary fashion forms.',
+    boards: [
+      {
+        id: 'theme',
+        title: 'DABU BLOCK PRINTING',
+        src: craftTextileImg,
+        alt: 'Traditional Indigo Dabu Fabric Manipulation',
+      },
+      {
+        id: 'inspiration',
+        title: 'ECO PRINT BOTANICALS',
+        src: ecoPrintRevealedImg,
+        alt: 'Steam-processed natural botanical leaf contact prints',
       },
     ],
   },
 };
 
-const PROJECT_KEYS = ['project-01', 'project-02', 'project-03', 'project-04', 'project-05'];
+const PROJECT_KEYS = ['project-01', 'project-02', 'project-03', 'project-04', 'project-05', 'project-06', 'project-07'];
 
 const resolveProjectKey = (id: string | undefined): string => {
   if (!id) return 'project-01';
   const clean = id.toLowerCase();
+  if (clean.includes('project-07') || clean.includes('bengali') || clean.includes('07')) {
+    return 'project-07';
+  }
+  if (clean.includes('project-06') || clean.includes('digital') || clean.includes('06')) {
+    return 'project-06';
+  }
   // Project 5 takes priority for textile, experiment, 05, or surrealism linked to project 5
   if (clean.includes('project-05') || clean.includes('textile-experimentation') || clean.includes('surrealism-mind') || clean.includes('05')) {
     return 'project-05';
   }
-  if (clean.includes('crochet') || clean.includes('02')) return 'project-02';
-  if (clean.includes('structural') || clean.includes('pattern') || clean.includes('construction') || clean.includes('03')) return 'project-03';
   if (clean.includes('velvet') || clean.includes('draping') || clean.includes('blooming') || clean.includes('04')) return 'project-04';
+  if (clean.includes('construction') || clean.includes('structural') || clean.includes('03')) return 'project-03';
+  if (clean.includes('crochet') || clean.includes('02')) return 'project-02';
   if (clean.includes('urban') || clean.includes('surrealism-collection') || clean.includes('01')) return 'project-01';
   return 'project-01';
 };
@@ -278,11 +329,6 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({
   const projectBackgroundStyle: React.CSSProperties = isProject04
     ? {
         backgroundColor: '#FFFFFF',
-        backgroundImage: `
-          linear-gradient(to right, rgba(129, 1, 0, 0.28) 50%, transparent 50%),
-          linear-gradient(to bottom, rgba(129, 1, 0, 0.28) 50%, transparent 50%)
-        `,
-        backgroundSize: '16px 16px',
       }
     : isProject02
     ? {
@@ -300,12 +346,28 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({
       }`}
       style={projectBackgroundStyle}
     >
-      {/* Soft faded vignette wash for Project 04 checkered pattern */}
+      {/* Soft faded and blurry background pattern for Project 04 */}
       {isProject04 && (
         <div
           aria-hidden="true"
-          className="fixed inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_45%,rgba(255,255,255,0.45)_100%)] z-0"
-        />
+          className="fixed inset-0 pointer-events-none z-0 overflow-hidden"
+        >
+          {/* Checkered pattern with soft blur and low opacity */}
+          <div
+            className="absolute -inset-12 filter blur-[4px] opacity-25"
+            style={{
+              backgroundColor: '#FFFFFF',
+              backgroundImage: `
+                linear-gradient(to right, rgba(129, 1, 0, 0.22) 50%, transparent 50%),
+                linear-gradient(to bottom, rgba(129, 1, 0, 0.22) 50%, transparent 50%)
+              `,
+              backgroundSize: '16px 16px',
+            }}
+          />
+          {/* Frosted glass blur & soft radial fade */}
+          <div className="absolute inset-0 bg-white/70 backdrop-blur-[6px]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,rgba(255,255,255,0.85)_100%)]" />
+        </div>
       )}
 
       <div className="relative z-10 pt-24 sm:pt-28 pb-28 px-3 sm:px-6 md:px-8 max-w-5xl mx-auto">
@@ -319,12 +381,12 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({
             onClick={onBackToWork}
             className={`group inline-flex items-center space-x-2 text-xs tracking-[0.25em] uppercase transition-colors cursor-pointer ${
               isProject04
-                ? 'bg-white/90 backdrop-blur-md px-4 py-2 rounded-full border border-white/70 shadow-sm text-[#810100] hover:bg-white hover:text-[#4A0005]'
+                ? 'bg-white/90 backdrop-blur-md p-2.5 rounded-full border border-white/70 shadow-sm text-[#810100] hover:bg-white hover:text-[#4A0005]'
                 : 'text-[#FAF5E8] hover:text-white'
             }`}
+            aria-label="Back to work"
           >
             <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform duration-300" />
-            <span>BACK TO WORK</span>
           </button>
         </div>
 
@@ -464,19 +526,34 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({
         )}
 
         {/* Presentation Boards */}
-        <div className={`flex flex-col space-y-0 ${isProject04 ? 'bg-transparent' : 'bg-[#810100]'}`}>
+        <div className={`flex flex-col items-center justify-center w-full space-y-0 ${isProject04 ? 'bg-transparent' : 'bg-[#810100]'}`}>
           {currentProject.boards.map((board) => {
+            const isSmallerBoard = board.id === 'theme' || board.id === 'inspiration';
+            const isTechnicalBoard = board.id === 'technical';
+            const isDevelopmentBoard = board.id === 'development';
+
             if (board.isSticker) {
               const isLarge = board.size === 'large' || board.size === 'wide';
+
               return (
                 <div
                   key={board.id}
                   id={`board-${board.id}`}
-                  className={`w-full ${isLarge ? 'py-6 sm:py-10' : 'py-3 sm:py-6'} flex flex-col items-center bg-transparent border-none`}
+                  className={`w-full ${
+                    isLarge
+                      ? 'py-5 sm:py-8'
+                      : isSmallerBoard
+                      ? 'py-2 sm:py-3.5 px-3 sm:px-6'
+                      : isTechnicalBoard
+                      ? 'py-2 sm:py-3.5 px-3 sm:px-6'
+                      : isDevelopmentBoard
+                      ? 'py-2 sm:py-3.5 px-2 sm:px-4'
+                      : 'py-3 sm:py-6'
+                  } flex flex-col items-center justify-center text-center bg-transparent border-none`}
                 >
                   {board.title && (
                     <h3
-                      className={`font-serif-luxury text-xs sm:text-base tracking-[0.3em] uppercase font-semibold mb-4 sm:mb-6 text-center ${
+                      className={`font-serif-luxury text-xs sm:text-base tracking-[0.3em] uppercase font-semibold text-center mx-auto mb-2.5 sm:mb-3.5 ${
                         isProject04
                           ? 'bg-white/90 backdrop-blur-md px-6 py-2 rounded-full border border-white/70 shadow-sm text-[#810100] inline-block'
                           : 'text-[#FAF5E8]/90'
@@ -491,9 +568,19 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({
                     loading="eager"
                     className={`${
                       isLarge
-                        ? 'max-w-xl sm:max-w-2xl md:max-w-3xl lg:max-w-4xl w-full h-auto scale-[1.06] sm:scale-[1.10]'
-                        : 'max-w-md sm:max-w-lg lg:max-w-xl w-full h-auto'
-                    } block select-none pointer-events-none drop-shadow-[0_20px_45px_rgba(0,0,0,0.65)]`}
+                        ? 'max-w-2xl sm:max-w-3xl md:max-w-4xl lg:max-w-5xl w-full h-auto'
+                        : isSmallerBoard
+                        ? 'w-[65%] max-w-sm sm:max-w-md md:max-w-xl lg:max-w-2xl h-auto'
+                        : isTechnicalBoard
+                        ? 'w-[64%] max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl h-auto'
+                        : isDevelopmentBoard
+                        ? 'w-full max-w-xl sm:max-w-3xl md:max-w-4xl lg:max-w-5xl h-auto'
+                        : 'max-w-xl sm:max-w-2xl md:max-w-3xl lg:max-w-4xl w-full h-auto'
+                    } ${
+                      board.id === 'technical' || board.title.includes('COLOUR')
+                        ? 'mt-[0.5cm]'
+                        : 'mt-0'
+                    } mx-auto self-center block select-none pointer-events-none drop-shadow-[0_20px_45px_rgba(0,0,0,0.65)]`}
                   />
                 </div>
               );
@@ -505,21 +592,29 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({
               <div
                 key={board.id}
                 id={`board-${board.id}`}
-                className={`w-full overflow-hidden ${
+                className={`w-full overflow-hidden flex flex-col items-center justify-center text-center ${
                   isProject04
                     ? 'bg-transparent'
                     : isProject02
                     ? 'bg-[#0E0808]/95 border-b border-[#D4AF37]/25 shadow-lg shadow-black/40'
                     : 'bg-[#810100]'
+                } ${
+                  isSmallerBoard
+                    ? 'px-4 sm:px-8'
+                    : isTechnicalBoard
+                    ? 'px-3 sm:px-6'
+                    : isDevelopmentBoard
+                    ? 'px-0 sm:px-2'
+                    : ''
                 } m-0 p-0 -mb-[1px] last:mb-0 border-none ${
                   isLastDevelopmentBoard
-                    ? 'sm:-mx-6 md:-mx-10 lg:-mx-16 sm:w-[calc(100%+3rem)] md:w-[calc(100%+5rem)] lg:w-[calc(100%+8rem)] max-w-none pt-4 sm:pt-6 pb-2'
+                    ? 'pt-4 sm:pt-6 pb-2'
                     : ''
                 }`}
               >
                 {board.title && (
                   <h3
-                    className={`font-serif-luxury text-sm sm:text-lg tracking-[0.3em] uppercase font-semibold mb-4 sm:mb-6 text-center pt-8 sm:pt-12 ${
+                    className={`font-serif-luxury text-sm sm:text-lg tracking-[0.3em] uppercase font-semibold mb-4 sm:mb-6 text-center mx-auto pt-8 sm:pt-12 ${
                       isProject04
                         ? 'bg-white/90 backdrop-blur-md px-6 py-2 rounded-full border border-white/70 shadow-sm text-[#810100] inline-block mx-auto'
                         : isProject02
@@ -540,9 +635,15 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({
                   src={board.src}
                   alt={board.alt}
                   loading="eager"
-                  className={`w-full h-auto block select-none pointer-events-none ${
-                    isLastDevelopmentBoard ? 'scale-[1.03] sm:scale-[1.05] origin-center' : ''
-                  }`}
+                  className={`${
+                    isSmallerBoard
+                      ? 'w-[65%] max-w-md sm:max-w-lg md:max-w-xl lg:max-w-[35rem]'
+                      : isTechnicalBoard
+                      ? 'w-[64%] max-w-2xl lg:max-w-3xl xl:max-w-4xl'
+                      : isDevelopmentBoard
+                      ? 'w-full max-w-[60rem] lg:max-w-[70rem] xl:max-w-[78rem]'
+                      : 'w-full max-w-4xl lg:max-w-5xl xl:max-w-6xl'
+                  } mx-auto h-auto block select-none pointer-events-none self-center shadow-2xl rounded-xs`}
                 />
               </div>
             );
@@ -559,12 +660,12 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({
             onClick={onBackToWork}
             className={`inline-flex items-center space-x-2 text-xs tracking-[0.25em] uppercase transition-colors cursor-pointer ${
               isProject04
-                ? 'bg-white/90 backdrop-blur-md px-4 py-2 rounded-full border border-white/70 shadow-sm text-[#810100] hover:bg-white hover:text-[#4A0005]'
+                ? 'bg-white/90 backdrop-blur-md p-2.5 rounded-full border border-white/70 shadow-sm text-[#810100] hover:bg-white hover:text-[#4A0005]'
                 : 'text-[#FAF5E8] hover:text-white'
             }`}
+            aria-label="Back to work"
           >
-            <ArrowLeft size={14} />
-            <span>BACK TO WORK</span>
+            <ArrowLeft size={16} />
           </button>
 
           <div className="flex items-center space-x-4">

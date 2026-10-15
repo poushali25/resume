@@ -29,7 +29,7 @@ export const WorkPage: React.FC<WorkPageProps> = ({
   return (
     <div
       id="work-interactive-canvas"
-      className="relative w-full h-screen overflow-hidden bg-white text-[#1B1717] select-none flex flex-col justify-between items-center pt-16 sm:pt-20 pb-4"
+      className="relative w-full h-screen overflow-hidden bg-white text-[#1B1717] select-none flex flex-col justify-center items-center pt-16 sm:pt-20 pb-4"
     >
       {/* 
         LAYER 1: CLEAN WHITE ATELIER BACKGROUND
@@ -41,11 +41,10 @@ export const WorkPage: React.FC<WorkPageProps> = ({
       </div>
 
       {/* 
-        LAYER 2: MAIN GALLERY CANVAS (5 Projects Sliding Horizontally)
-        - Targeted by CSS selector: div#work-interactive-canvas > main > div:nth-of-type(1)
+        LAYER 2: MAIN GALLERY CANVAS
       */}
       <main className="relative w-full h-full flex-1 flex flex-col items-center justify-center z-20 overflow-hidden">
-        <div className="relative w-full h-full flex flex-col justify-between items-center">
+        <div className="relative w-full h-full flex flex-col justify-center items-center">
           <VerticalOvalProjectOrbit
             onSelectProject={onSelectProject}
             onHoverProjectStart={onHoverProjectStart}

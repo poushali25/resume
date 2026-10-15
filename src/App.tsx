@@ -5,6 +5,7 @@ import { SmokingCursor } from './components/SmokingCursor';
 import { FireSmokeCanvas } from './components/FireSmokeCanvas';
 import { PageTransition, TransitionPhase, TransitionDirection } from './components/PageTransition';
 import { ImageViewerModal } from './components/ImageViewerModal';
+import { markLandingFlowSeen } from './utils/sessionState';
 
 import { HomePage } from './pages/HomePage';
 import { WorkPage } from './pages/WorkPage';
@@ -74,10 +75,12 @@ export default function App() {
       }
 
       // Determine navigation direction:
-      // When navigating back to work or returning from detail, reverse the fluid direction
+      // When navigating back to home or work or returning from detail, reverse the page flip
       const determinedDirection: TransitionDirection =
         directionOverride ||
-        (activePage === 'project-detail' && targetPage === 'work' ? 'reverse' : 'forward');
+        (targetPage === 'home' || (activePage === 'project-detail' && targetPage === 'work')
+          ? 'reverse'
+          : 'forward');
 
       const targetRoute =
         targetPage === 'project-detail'
@@ -88,11 +91,14 @@ export default function App() {
         window.history.pushState(null, '', targetRoute);
       }
 
+      // As soon as user navigates to any page, mark the opening flow as seen
+      markLandingFlowSeen();
+
       // Clear any pending timers
       transitionTimerRef.current.forEach((id) => clearTimeout(id));
       transitionTimerRef.current = [];
 
-      // Reduced motion: Clean subtle crossfade
+      // Reduced motion: Clean subtle crimson crossfade
       if (reducedMotion) {
         setIsTransitioning(true);
         setTransitionPhase('covering');
@@ -104,45 +110,36 @@ export default function App() {
           setActivePage(targetPage);
           window.scrollTo({ top: 0, behavior: 'instant' });
           setTransitionPhase('revealing');
-        }, 450);
+        }, 300);
 
         const t2 = window.setTimeout(() => {
           setIsTransitioning(false);
           setTransitionPhase('idle');
-        }, 900);
+        }, 600);
 
         transitionTimerRef.current = [t1, t2];
         return;
       }
 
-      // Smooth and fluid signature liquid wave transition (~1200ms total, matching landing page)
+      // Realistic Magazine/Book Page-Flipping Transition (1200ms total, luxurious editorial opening cadence)
       setTransitionDirection(determinedDirection);
       setIsTransitioning(true);
       setTransitionPhase('covering');
-      setTriggerSweep(true);
 
-      // Page swap at 580ms when the liquid wave has 100% blanketed the viewport
-      const t1 = window.setTimeout(() => {
-        setTransitionPhase('covered');
-        if (targetProjectId) {
-          setSelectedProjectId(targetProjectId);
-        }
-        setActivePage(targetPage);
-        window.scrollTo({ top: 0, behavior: 'instant' });
+      // Mount destination page immediately underneath so it is completely ready as the top page lifts and turns
+      if (targetProjectId) {
+        setSelectedProjectId(targetProjectId);
+      }
+      setActivePage(targetPage);
+      window.scrollTo({ top: 0, behavior: 'instant' });
 
-        requestAnimationFrame(() => {
-          setTransitionPhase('revealing');
-        });
-      }, 580);
-
-      // Liquid wave glides past the top, settling into new page (~1200ms)
-      const t2 = window.setTimeout(() => {
+      // Page finishes turning cleanly across the screen
+      const t = window.setTimeout(() => {
         setIsTransitioning(false);
         setTransitionPhase('idle');
-        setTriggerSweep(false);
       }, 1200);
 
-      transitionTimerRef.current = [t1, t2];
+      transitionTimerRef.current = [t];
     },
     [activePage, isTransitioning, reducedMotion, selectedProjectId]
   );
@@ -194,8 +191,7 @@ export default function App() {
   };
 
   const handleSwitchProject = (projectId: string) => {
-    setSelectedProjectId(projectId);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    navigateToPage('project-detail', projectId, 'forward');
   };
 
   const handleOpenGallery = (images: GalleryImage[], index: number = 0) => {

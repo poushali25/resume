@@ -1,12 +1,15 @@
 import urbanEclipseCoverImg from '../assets/images/urban_eclipse_cover.png';
-import noirThemeBoardImg from '../assets/images/regenerated_image_1790765141035.png';
+import noirCoverImg from '../assets/images/regenerated_image_1791993230845.png';
+import technicalSketchImg from '../assets/images/regenerated_image_1790514753708.png';
 import bloomingCoverImg from '../assets/images/regenerated_image_1790702846645.jpg';
 import surrealismThemeImg from '../assets/images/theme_board_surrealism_sticker.png';
+import illustrationImg from '../assets/images/regenerated_image_1790615014861.png';
+import craftTextileImg from '../assets/images/indigo_dabu_fabric_1790494478976.jpg';
 
 export interface FiveProjectItem {
   id: string; // Project identifier linked to ProjectDetailPage
-  index: number; // 0 to 4
-  number: string; // "01", "02", "03", "04", "05"
+  index: number; // 0 to 6
+  number: string; // "01", "02", "03", "04", "05", "06", "07"
   title: string;
   category: string;
   year: string;
@@ -17,18 +20,18 @@ export interface FiveProjectItem {
 }
 
 /**
- * Centralized Editable Data Structure for the Exactly 5 Projects
- * Featured on the Work Page Vertical Oval Orbit.
+ * Centralized Editable Data Structure for the Exactly 7 Projects
+ * Featured on the Work Page 3D Rotating Oval Orbit.
  */
 export const FIVE_PROJECTS: FiveProjectItem[] = [
   {
-    id: 'surrealism-collection',
+    id: 'urban-eclipse',
     index: 0,
     number: '01',
-    title: 'NOIR-E-ZARI',
+    title: 'Urban Eclipse',
     category: 'Avant-Garde Tailoring',
     year: '2025',
-    description: 'Noir e Zari is a striking collection of Indian wear that blends the depth of black with the vibrancy of red, adorned with heavy zari embroidery. Rooted in tradition yet styled with modern elegance, the collection embodies drama, luxury, and timeless artistry — a celebration of heritage reimagined for contemporary fashion.',
+    description: 'The theme merges industrial street culture with nocturnal celestial imagery—using rugged denim, visible construction lines, oversized proportions and raw edges alongside delicate embroidery, dangling threads and beadwork.',
     image: urbanEclipseCoverImg,
     route: '/work/project-01',
     accentColor: '#810100',
@@ -40,8 +43,8 @@ export const FIVE_PROJECTS: FiveProjectItem[] = [
     title: 'NOIR E ZARI',
     category: 'Haute Couture Indian Wear',
     year: '2024',
-    description: 'Noir e Zari is a striking collection of Indian wear that blends the depth of black with the vibrancy of red, adorned with heavy zari embroidery. Rooted in tradition yet styled with modern elegance, the collection embodies drama, luxury, and timeless artistry — a celebration of heritage reimagined for contemporary fashion.',
-    image: noirThemeBoardImg,
+    description: 'Noir e Zari is a striking collection of Indian wear that blends the depth of black with the vibrancy of red, adorned with heavy zari embroidery. Rooted in tradition yet styled with modern elegance, the collection embodies drama, luxury, and timeless artistry.',
+    image: noirCoverImg,
     route: '/work/project-02',
     accentColor: '#920612',
   },
@@ -52,10 +55,10 @@ export const FIVE_PROJECTS: FiveProjectItem[] = [
     title: 'Garment Construction',
     category: 'Pattern Architecture',
     year: '2024',
-    description: 'Origami tessellations, mathematical dart manipulation, and cantilevered shoulder tailoring.',
-    image: 'https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=1200&q=85',
+    description: 'Origami tessellations, mathematical dart manipulation, and cantilevered shoulder tailoring eliminating conventional side-seams for architectural silhouette balance.',
+    image: technicalSketchImg,
     route: '/work/project-03',
-    accentColor: '#D41428',
+    accentColor: '#810100',
   },
   {
     id: 'knitted-velvet-draping',
@@ -64,7 +67,7 @@ export const FIVE_PROJECTS: FiveProjectItem[] = [
     title: 'BLOOMING',
     category: 'Fluid Couture Silhouette',
     year: '2023',
-    description: 'the softness and beauty of a flower slowly coming into bloom represent the gentle and feminine nature of a girl.',
+    description: 'The softness and beauty of a flower slowly coming into bloom represent the gentle and feminine nature of a girl.',
     image: bloomingCoverImg,
     route: '/work/project-04',
     accentColor: '#810100',
@@ -76,9 +79,33 @@ export const FIVE_PROJECTS: FiveProjectItem[] = [
     title: 'Surrealism',
     category: 'Avant-Garde & Conceptual Art',
     year: '2023',
-    description: '“movement in visual art and literature” — Caged Mind & Overthinking.',
+    description: '“Movement in visual art and literature” — Caged Mind & Overthinking, exploring anatomical distortions and subconscious emotional states.',
     image: surrealismThemeImg,
     route: '/work/project-05',
+    accentColor: '#920612',
+  },
+  {
+    id: 'digital-fashion-illustration',
+    index: 5,
+    number: '06',
+    title: 'Digital Illustration',
+    category: 'Digital Atelier & Visual CAD',
+    year: '2024',
+    description: 'High-contrast figure rendering, kinetic silhouette CAD treatments, and dramatic light simulations communicating the physical emotion of couture.',
+    image: illustrationImg,
+    route: '/work/project-06',
+    accentColor: '#810100',
+  },
+  {
+    id: 'bengali-inspired-illustration',
+    index: 6,
+    number: '07',
+    title: 'Bengali Narrative & Craft',
+    category: 'Cultural Lineage & Textiles',
+    year: '2023',
+    description: 'Reinterpreting classical Bengal folk narratives, Kalighat pats, and traditional indigo/dabu craft practices into contemporary fashion forms.',
+    image: craftTextileImg,
+    route: '/work/project-07',
     accentColor: '#920612',
   },
 ];

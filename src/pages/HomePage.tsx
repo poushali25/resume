@@ -2,9 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { PageId } from '../types';
 import galaxyBgImage from '../assets/images/galaxy(2).jpg';
 import { EmbroideryScene } from '../components/embroidery/EmbroideryScene';
-import { VintagePageTransition } from '../components/embroidery/VintagePageTransition';
 import { LandingNav } from '../components/home/LandingNav';
-import { ArchiveGallerySection } from '../components/home/ArchiveGallerySection';
+import { hasSeenLandingFlow, markLandingFlowSeen } from '../utils/sessionState';
 
 interface HomePageProps {
   onNavigate: (page: PageId, projectId?: string) => void;
@@ -32,14 +31,16 @@ export const HomePage: React.FC<HomePageProps> = ({
   onHoverProjectEnd,
   reducedMotion = false,
 }) => {
-  const [progressTime, setProgressTime] = useState<number>(reducedMotion ? 10 : 0);
+  const isFirstVisit = !reducedMotion && !hasSeenLandingFlow();
+  const [progressTime, setProgressTime] = useState<number>(isFirstVisit ? 0 : 10);
   const [isExpandingForWork, setIsExpandingForWork] = useState(false);
   const startTimeRef = useRef<number | null>(null);
   const animFrameRef = useRef<number | null>(null);
 
   useEffect(() => {
-    if (reducedMotion) {
+    if (!isFirstVisit) {
       setProgressTime(10);
+      markLandingFlowSeen();
       return;
     }
 
@@ -50,6 +51,10 @@ export const HomePage: React.FC<HomePageProps> = ({
       const elapsed = (now - startTimeRef.current) / 1000;
       setProgressTime(elapsed);
 
+      if (elapsed >= 2.5) {
+        markLandingFlowSeen();
+      }
+
       animFrameRef.current = requestAnimationFrame(loop);
     };
 
@@ -57,8 +62,9 @@ export const HomePage: React.FC<HomePageProps> = ({
 
     return () => {
       if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
+      markLandingFlowSeen();
     };
-  }, [reducedMotion]);
+  }, [isFirstVisit]);
 
   // Transition when clicking WORK in navigation
   const handleSelectWork = () => {
@@ -141,19 +147,6 @@ export const HomePage: React.FC<HomePageProps> = ({
           onSkipIntro={handleSkipIntro}
         />
       </main>
-
-      {/* 4. ARCHIVE RUNWAY SECTION (SELECTED SILHOUETTES OVAL RUNWAY) */}
-      <ArchiveGallerySection
-        progressTime={progressTime}
-        reducedMotion={reducedMotion}
-        onSelectProject={handleSelectProject}
-        onHoverCardStart={onHoverProjectStart}
-        onHoverCardEnd={onHoverProjectEnd}
-        onNavigate={onNavigate}
-      />
-
-      {/* 6. VINTAGE TEXTILE PAGE TRANSITION */}
-      <VintagePageTransition isActive={isExpandingForWork} targetPageName="Work Archive" />
 
       {/* Global CSS for subtle galaxy motion */}
       <style>{`

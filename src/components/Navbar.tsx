@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { PageId } from '../types';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ArrowLeft } from 'lucide-react';
 
 interface NavbarProps {
   activePage: PageId;
@@ -78,41 +78,74 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-700 ease-out select-none ${
+        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ease-out select-none ${
           isProject04
-            ? 'bg-white/95 backdrop-blur-md border-b border-[#810100]/20 shadow-sm py-4'
+            ? 'bg-white/95 backdrop-blur-md border-b border-[#810100]/20 shadow-sm py-3.5 sm:py-4'
             : isProject02
-              ? isScrolled
-                ? 'bg-[#090505]/95 backdrop-blur-md border-b border-[#D4AF37]/25 shadow-lg shadow-black/50 py-4'
-                : 'bg-transparent py-6 sm:py-8'
-              : isScrolled
-                ? 'bg-[#810100]/95 backdrop-blur-md border-b border-white/10 shadow-lg py-4'
-                : 'bg-transparent py-6 sm:py-8'
+              ? isScrolled || activePage === 'project-detail'
+                ? 'bg-[#090505]/95 backdrop-blur-md border-b border-[#D4AF37]/25 shadow-lg shadow-black/50 py-3.5 sm:py-4'
+                : 'bg-transparent py-5 sm:py-6'
+              : isScrolled || activePage === 'project-detail'
+                ? 'bg-[#810100]/95 backdrop-blur-md border-b border-white/10 shadow-lg py-3.5 sm:py-4'
+                : 'bg-transparent py-5 sm:py-6'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 sm:px-12 flex items-center justify-between">
-          {/* Left: Designer Name (Clean & Minimal) */}
-          <button
-            onClick={() => handleNavClick('home', '/home')}
-            onMouseEnter={onHoverNavStart}
-            onMouseLeave={onHoverNavEnd}
-            className="group text-left focus:outline-hidden cursor-pointer"
-            aria-label="Poushali Maji - Home"
-          >
-            <span
-              className={`font-serif-luxury text-lg sm:text-xl tracking-[0.22em] font-normal transition-colors duration-300 ${
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-12 flex items-center justify-between">
+          {/* Left: Constant Back Navigation (persists during scrolling) & Designer Name */}
+          <div className="flex items-center space-x-2.5 sm:space-x-4">
+            <button
+              onClick={() => {
+                if (activePage === 'project-detail') {
+                  handleNavClick('work', '/work');
+                } else {
+                  handleNavClick('home', '/home');
+                }
+              }}
+              onMouseEnter={onHoverNavStart}
+              onMouseLeave={onHoverNavEnd}
+              className={`group inline-flex items-center space-x-1.5 sm:space-x-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-[11px] sm:text-xs tracking-[0.22em] uppercase font-sans font-medium transition-all duration-300 cursor-pointer backdrop-blur-md shadow-sm focus:outline-hidden ${
                 isProject04
-                  ? 'text-[#1B1717] group-hover:text-[#810100]'
+                  ? 'bg-white/95 text-[#810100] border border-[#810100]/25 hover:bg-[#810100] hover:text-white'
                   : isProject02
-                    ? 'text-[#FAF5E8] group-hover:text-[#D4AF37]'
+                    ? 'bg-[#180A0A]/95 text-[#F5E6C8] border border-[#D4AF37]/35 hover:border-[#D4AF37] hover:bg-[#2A1414] hover:text-white'
                     : isScrolled || activePage === 'project-detail'
-                      ? 'text-[#FAF5E8] group-hover:text-white'
-                      : 'text-[#1B1717] group-hover:text-[#810100]'
+                      ? 'bg-white/15 text-white border border-white/25 hover:bg-white/25 hover:border-white/50'
+                      : 'bg-white/90 text-[#1B1717] border border-[#1B1717]/15 hover:border-[#810100] hover:text-[#810100]'
               }`}
+              aria-label={activePage === 'project-detail' ? 'Back to Work' : 'Back to Home'}
             >
-              POUSHALI MAJI
-            </span>
-          </button>
+              <ArrowLeft
+                size={14}
+                className="group-hover:-translate-x-1 transition-transform duration-300"
+              />
+              <span className="font-semibold">
+                {activePage === 'project-detail' ? 'BACK TO WORK' : 'BACK TO HOME'}
+              </span>
+            </button>
+
+            {/* Designer Name / Home Link on Desktop */}
+            <button
+              onClick={() => handleNavClick('home', '/home')}
+              onMouseEnter={onHoverNavStart}
+              onMouseLeave={onHoverNavEnd}
+              className="hidden lg:block group text-left focus:outline-hidden cursor-pointer"
+              aria-label="Poushali Maji - Home"
+            >
+              <span
+                className={`font-serif-luxury text-base sm:text-lg tracking-[0.22em] font-normal transition-colors duration-300 ${
+                  isProject04
+                    ? 'text-[#1B1717] group-hover:text-[#810100]'
+                    : isProject02
+                      ? 'text-[#FAF5E8] group-hover:text-[#D4AF37]'
+                      : isScrolled || activePage === 'project-detail'
+                        ? 'text-[#FAF5E8] group-hover:text-white'
+                        : 'text-[#1B1717] group-hover:text-[#810100]'
+                }`}
+              >
+                POUSHALI MAJI
+              </span>
+            </button>
+          </div>
 
           {/* Desktop Navigation Links (Clean, Small, and Elegant) */}
           <nav

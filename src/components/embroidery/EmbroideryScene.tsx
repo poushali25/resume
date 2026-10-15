@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
+import { hasSeenLandingFlow, markLandingFlowSeen } from '../../utils/sessionState';
 
 interface EmbroiderySceneProps {
   progressTime: number; // in seconds
@@ -40,10 +41,11 @@ export const EmbroideryScene: React.FC<EmbroiderySceneProps> = ({
   const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
-  // Animation Timeline Controller (starts from 0.0 for cinematic opening sequence)
-  const [localTime, setLocalTime] = useState<number>(reducedMotion ? 9.0 : 0.0);
+  // If first visit, start at 0.0 for cinematic opening sequence; otherwise skip directly to revealed state (9.0)
+  const isFirstVisit = !reducedMotion && !hasSeenLandingFlow();
+  const [localTime, setLocalTime] = useState<number>(isFirstVisit ? 0.0 : 9.0);
   const [isPaused, setIsPaused] = useState(false);
-  const [hasCompleted, setHasCompleted] = useState(reducedMotion ? true : false);
+  const [hasCompleted, setHasCompleted] = useState(!isFirstVisit);
   const animationFrameRef = useRef<number | null>(null);
   const lastTimeRef = useRef<number>(performance.now());
 
@@ -59,9 +61,10 @@ export const EmbroideryScene: React.FC<EmbroiderySceneProps> = ({
 
   // Main high-precision animation loop
   useEffect(() => {
-    if (reducedMotion) {
+    if (!isFirstVisit) {
       setLocalTime(9.0);
       setHasCompleted(true);
+      markLandingFlowSeen();
       return;
     }
 
@@ -74,6 +77,9 @@ export const EmbroideryScene: React.FC<EmbroiderySceneProps> = ({
       if (!isPaused) {
         setLocalTime((prev) => {
           const next = prev + dt;
+          if (next >= 2.5) {
+            markLandingFlowSeen();
+          }
           if (next >= 3.2 && !hasCompleted) {
             setHasCompleted(true);
             onAnimationComplete?.();
@@ -89,8 +95,9 @@ export const EmbroideryScene: React.FC<EmbroiderySceneProps> = ({
 
     return () => {
       if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
+      markLandingFlowSeen();
     };
-  }, [isPaused, reducedMotion, hasCompleted, onAnimationComplete]);
+  }, [isFirstVisit, isPaused, hasCompleted, onAnimationComplete]);
 
   // Mouse move handler for subtle 3D parallax on the portrait and ambient glow
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -139,7 +146,8 @@ export const EmbroideryScene: React.FC<EmbroiderySceneProps> = ({
     ctx.scale(dpr, dpr);
     ctx.clearRect(0, 0, w, h);
 
-    const t = localTime;
+    const isFirstOpening = !reducedMotion && !hasSeenLandingFlow();
+    const t = isFirstOpening ? localTime : 9.0;
     const m = mouseRef.current;
     m.tiltX += (m.targetX - m.tiltX) * 0.08;
     m.tiltY += (m.targetY - m.tiltY) * 0.08;
@@ -149,9 +157,9 @@ export const EmbroideryScene: React.FC<EmbroiderySceneProps> = ({
     const T_FLUID_END = 2.2;
 
     // =========================================================
-    // 1. SCENE 1: RED INTRO SCREEN (0.0s – 0.4s)
+    // 1. SCENE 1: RED INTRO SCREEN (0.0s – 0.4s) — ONLY ON FIRST OPENING
     // =========================================================
-    if (t < T_FLUID_END && !reducedMotion) {
+    if (isFirstOpening && t < T_FLUID_END) {
       // 1A. Deep rich red background matching reference video (#8A0000 / #900A0A)
       const redGrad = ctx.createRadialGradient(
         w * 0.5 + m.tiltX * 2,
@@ -177,9 +185,9 @@ export const EmbroideryScene: React.FC<EmbroiderySceneProps> = ({
     }
 
     // =========================================================
-    // 2. SCENE 2: DARK BLUE LIQUID / INK FLOW WAVE (0.4s – 2.2s)
+    // 2. SCENE 2: DARK BLUE LIQUID / INK FLOW WAVE (0.4s – 2.2s) — ONLY ON FIRST OPENING
     // =========================================================
-    if (t >= T_FLUID_START && !reducedMotion) {
+    if (isFirstOpening && t >= T_FLUID_START) {
       const fluidProgress = Math.min((t - T_FLUID_START) / (T_FLUID_END - T_FLUID_START), 1.0);
       // Fluid ease-in-out curve
       const fluidEase = fluidProgress * fluidProgress * (3 - 2 * fluidProgress);
@@ -284,9 +292,9 @@ export const EmbroideryScene: React.FC<EmbroiderySceneProps> = ({
     ctx.restore();
   }, [localTime, reducedMotion]);
 
-  // Timing helper flags
-  const isPostFluid = reducedMotion || localTime >= 2.2;
-  const isTypographyActive = reducedMotion || localTime >= 2.4;
+  // Timing helper flags — if not the initial website opening, everything is active immediately
+  const isPostFluid = !isFirstVisit || localTime >= 2.2;
+  const isTypographyActive = !isFirstVisit || localTime >= 2.7;
 
   const handleContainerClick = () => {
     if (localTime < 2.2) {
@@ -313,7 +321,7 @@ export const EmbroideryScene: React.FC<EmbroiderySceneProps> = ({
       {/* 2. SCENE 6: OVERSIZED "POUSHALI MAJI" MOVING HORIZONTALLY */}
       {isPostFluid && (
         <div
-          className={`absolute inset-0 z-15 flex items-center justify-center pointer-events-none overflow-hidden transition-opacity duration-1000 ${
+          className={`absolute inset-0 z-15 flex items-center justify-center pointer-events-none overflow-hidden transition-opacity duration-[1300ms] ease-out ${
             isTypographyActive ? 'opacity-100' : 'opacity-0'
           }`}
         >
@@ -322,7 +330,7 @@ export const EmbroideryScene: React.FC<EmbroiderySceneProps> = ({
             <div
               className="flex items-center space-x-12 shrink-0 animate-marquee"
               style={{
-                animation: 'infiniteScroll 28s linear infinite',
+                animation: 'infiniteScroll 38s linear infinite',
               }}
             >
               {[...Array(6)].map((_, idx) => (
@@ -346,11 +354,11 @@ export const EmbroideryScene: React.FC<EmbroiderySceneProps> = ({
 
       {/* 3. SCENE 7: SMALL ABOUT-ME PARAGRAPH (UPPER-LEFT CORNER) */}
       <div
-        className={`absolute top-8 left-6 sm:top-12 sm:left-12 max-w-[280px] sm:max-w-[340px] text-left z-30 transition-all duration-1000 ${
+        className={`absolute top-8 left-6 sm:top-12 sm:left-12 max-w-[320px] sm:max-w-[420px] md:max-w-[460px] text-left z-30 transition-all duration-1000 ${
           isPostFluid ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'
         }`}
       >
-        <p className="text-white/85 text-[11px] sm:text-[12px] leading-relaxed font-light tracking-wide">
+        <p className="text-white/90 text-sm sm:text-[15px] md:text-base leading-relaxed font-light tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">
           I am Poushali Maji, a fashion designer exploring structured garments, Western
           silhouettes, Indian textiles, and experimental craftsmanship. My work combines form,
           material, and cultural influence to create contemporary fashion.
